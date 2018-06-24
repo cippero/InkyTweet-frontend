@@ -3,6 +3,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import LandingPage from './componets/LandingPage';
 import Header from './componets/partials/Header';
 import Profile from './componets/Profile';
 import Browse from './componets/Browse';
@@ -26,7 +27,7 @@ class App extends Component {
         , subscriptions: []
         , followers: []
       },
-      input: ''
+      query: ''
     };
   }
 
@@ -64,21 +65,17 @@ class App extends Component {
       });
   }
 
-  handleSearch = (val) => {
-    // console.log(val);
-    this.setState({ input: val })
-  }
+  filter = (input) => { this.setState({ query: input }); }
 
-  componentDidMount() {
-    this.updateUser();
-  }
+  // handleSearch = (val) => { this.setState({ input: val }); }
+
+  componentDidMount() { this.updateUser(); }
 
   render() {
     return (
       <div>
         <Header
                 user={this.state.user}
-                handleSearch={this.state.handleSearch}
                 filter ={this.filter} 
                 />
         <Switch>
@@ -86,11 +83,13 @@ class App extends Component {
           <Route path={`/user/${this.state.user.handle}`} component={() => <Profile
             user={this.state.user}
             updateUser={this.updateUser}
-            handleSearch={this.handleSearch} />} />
+            query={this.state.query} 
+            />} />
           <Route path='/browse' component={() => <Browse
             user={this.state.user}
             updateUser={this.updateUser}
-            handleSearch={this.handleSearch} />} />
+            query={this.state.query} 
+            />} />
         </Switch>
       </div>
     );

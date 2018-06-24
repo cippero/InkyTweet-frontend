@@ -23,8 +23,8 @@ class PurchasedTweets extends Component {
         this.setState({purchasedTweets: newProps.user.purchasedTweets})
     }
 
-    handleTweetRemove = (e, id) => {
-        axios.delete(`${SERVER_URL}/profile/${id}`, {data: {writer: this.props.user}})
+    handleTweetRemove = async (e, id) => {
+        await axios.delete(`${SERVER_URL}/profile/${id}`, {data: {writer: this.props.user}})
         this.props.updateUser();
     }
     
@@ -54,7 +54,7 @@ class PurchasedTweets extends Component {
                         </Card>
                     )
                 } else {
-                    return(<p></p>)
+                    return(<p key={i}></p>)
                 }
             })
         }

@@ -7,17 +7,6 @@ import PurchasedTweets from './containers/PurchasedTweets';
 
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: ''
-        }
-    }
-
-    filter = (input) => {
-        this.setState({ query: input });
-    }
-
     render() {
         return (
                 <div>
@@ -30,10 +19,10 @@ class Profile extends Component {
                             </Col>
                             <WrittenTweets user={this.props.user}
                                 updateUser={this.props.updateUser}
-                                query={this.state.query} />
+                                query={this.props.query} />
                             <PurchasedTweets user={this.props.user}
                                 updateUser={this.props.updateUser}
-                                query={this.state.query} />
+                                query={this.props.query} />
                         </Row>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ class Users extends Component {
         super(props);
         this.state = {
             users: []
+            ,query: ''
         }
     }
     componentDidMount() {
@@ -27,12 +28,18 @@ class Users extends Component {
             this.setState({
                 users: response
             });
-        })
+        });
+        this.setState({query: this.props.query});
+    }
+
+    componentWillReceiveProps = (newProps) => {
+        this.setState({query: newProps.query});
+        console.log(this.state.query);
     }
     
     render() {
         let allUsers = '';
-        let searchInput = new RegExp(this.props.query, 'i');
+        let searchInput = new RegExp(this.state.query, 'i');
         if (this.state.users !== []) {
             allUsers = this.state.users.map((user, i) => {
                 if (this.props.query === '' || searchInput.test(user.handle)) {
@@ -47,7 +54,7 @@ class Users extends Component {
                         </Col>
                     )
                 } else {
-                    return(<p></p>)
+                    return(<p key={i}></p>)
                 }
             })
         }

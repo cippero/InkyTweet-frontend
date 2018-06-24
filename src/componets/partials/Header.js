@@ -16,17 +16,11 @@ class Header extends Component {
         this.state = {
             userName : ''
         }
-
-    }
-    handleChange = (e, val) => {
-        this.props.filter(val)
     }
 
-    componentDidMount = () => {
-        this.setState({
-            userName : this.props.user.handle
-        })
-    }
+    handleChange = (e, val) => { this.props.filter(val); }
+
+    componentDidMount = () => { this.setState({ userName : this.props.user.handle }); }
 
     render() {
         let buttons =   <Row>
@@ -44,7 +38,7 @@ class Header extends Component {
         }
         return (
             <div>
-                <Navbar brand=' InkyTweet' right>
+                <Navbar brand='InkyTweet' right>
                     {buttons}
                 </Navbar>
             </div>

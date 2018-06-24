@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+// import { unmountComponentAtNode } from 'react-dom';
 import { Col, Card, CardTitle } from 'react-materialize';
 import axios from 'axios';
 const SERVER_URL = 'http://localhost:8080';
-
 
 
 class WrittenTweets extends Component {
@@ -13,20 +13,21 @@ class WrittenTweets extends Component {
         }
     }
 
-    componentDidMount = () => {
-        this.setState({writtenTweets: this.props.user.writtenTweets});
-    }
+    componentDidMount = () => { this.setState({writtenTweets: this.props.user.writtenTweets}); }
 
     componentWillReceiveProps = (newProps) => {
-        this.setState({writtenTweets: newProps.user.writtenTweets})
+        this.setState({writtenTweets: newProps.user.writtenTweets});
+        // console.log(this.props.query);
     }
 
-    handleTweetRemove = (e, id) => {
-        axios.delete(`${SERVER_URL}/profile/${id}`, {data: {writer: this.props.user}})
+    handleTweetRemove = async (e, id) => {
+        await axios.delete(`${SERVER_URL}/profile/${id}`, {data: {writer: this.props.user}})
         this.props.updateUser();
     }
 
     render() {
+        let style = {}
+        this.writtenTweets === [] ? style = {backgroundColor: 'white'} : style = {backgroundColor: 'white'}
         const buttonStyle = {margin: '10px 10px 10px 0'};
         let writtenTweets = <div>No written tweets</div>;
         let tags = '';
@@ -52,14 +53,14 @@ class WrittenTweets extends Component {
                         </Card>
                     )
                 } else {
-                    return(<p></p>)
+                    return(<p key={i}></p>)
                 }
             })
         }
 
         return (
             <div>
-                <Col s={4}>
+                <Col s={4} style={style}>
                     {writtenTweets}
                 </Col>
             </div>

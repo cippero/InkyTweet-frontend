@@ -5,16 +5,6 @@ import Stats from './Stats';
 import Users from './Users';
 
 class Browse extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: ''
-        }
-    }
-
-    filter = (input) => {
-        this.setState({ query: input });
-    }
     render() {
         return (
             <div>
@@ -27,7 +17,7 @@ class Browse extends Component {
                         </Col>
                         <Users user={this.props.user}
                             updateUser={this.props.updateUser}
-                            query={this.state.query} />
+                            query={this.props.query} />
                     </Row>
                 </div>
             </div>
