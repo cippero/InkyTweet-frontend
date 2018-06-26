@@ -8,20 +8,16 @@ import axios from 'axios';
 const SERVER_URL = 'http://localhost:8080';
 
 class PurchasedTweets extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             purchasedTweets: []
         }
     }
 
-    componentDidMount = () => {
-        this.setState({purchasedTweets: this.props.user.purchasedTweets});
-    }
+    componentDidMount = () => { this.setState({purchasedTweets: this.props.user.purchasedTweets}); }
 
-    componentWillReceiveProps = (newProps) => {
-        this.setState({purchasedTweets: newProps.user.purchasedTweets})
-    }
+    componentWillReceiveProps = (newProps) => { this.setState({purchasedTweets: newProps.user.purchasedTweets}); }
 
     handleTweetRemove = async (e, id) => {
         await axios.delete(`${SERVER_URL}/profile/${id}`, {data: {writer: this.props.user}})
@@ -44,7 +40,7 @@ class PurchasedTweets extends Component {
                             title={tweet.body}
                             reveal={<div>{tags}</div>} >
                             <p>
-                                <a href="/">By: {tweet.creator}</a>{' '}
+                                <a href="/">By: {tweet.creator}</a>
                                 <button
                                     id={i}
                                     className="btn btn-default"

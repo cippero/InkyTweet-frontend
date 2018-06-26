@@ -18,7 +18,6 @@ class LandingPage extends Component {
         } else {
             button = <Button waves='light' node='a' href={`/user/${this.props.user.handle}`}>Profile</Button>
         }
-        // if ()
         return (
             <div>
                 <div className='container'>

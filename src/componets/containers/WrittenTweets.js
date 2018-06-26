@@ -6,8 +6,8 @@ const SERVER_URL = 'http://localhost:8080';
 
 
 class WrittenTweets extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             writtenTweets: []
         }
@@ -15,10 +15,7 @@ class WrittenTweets extends Component {
 
     componentDidMount = () => { this.setState({writtenTweets: this.props.user.writtenTweets}); }
 
-    componentWillReceiveProps = (newProps) => {
-        this.setState({writtenTweets: newProps.user.writtenTweets});
-        // console.log(this.props.query);
-    }
+    componentWillReceiveProps = (newProps) => { this.setState({writtenTweets: newProps.user.writtenTweets}); }
 
     handleTweetRemove = async (e, id) => {
         await axios.delete(`${SERVER_URL}/profile/${id}`, {data: {writer: this.props.user}})
@@ -43,7 +40,7 @@ class WrittenTweets extends Component {
                             title={tweet.body}
                             reveal={<div>{tags}</div>} >
                             <p>
-                                <a href="/">By: {tweet.creator}</a>{' '}
+                                <a href="/">By: {tweet.creator}</a>
                                 <button
                                     data-id={tweet._id}
                                     className="btn btn-default"

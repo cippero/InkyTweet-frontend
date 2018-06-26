@@ -45,8 +45,7 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        // console.log('fetch response', response);
-        if (response.user) {
+        if (!!response.user) {
           // We found a twitter user in the server session
           // console.log('user found. response:', response);
           let twitterUser = {
@@ -60,14 +59,11 @@ class App extends Component {
             , followers: response.followers
           }
           this.setState({ user: twitterUser });
-          // console.log(this.state.user.writtenTweets);
         }
       });
   }
 
   filter = (input) => { this.setState({ query: input }); }
-
-  // handleSearch = (val) => { this.setState({ input: val }); }
 
   componentDidMount() { this.updateUser(); }
 
@@ -75,9 +71,9 @@ class App extends Component {
     return (
       <div>
         <Header
-                user={this.state.user}
-                filter ={this.filter} 
-                />
+          user={this.state.user}
+          filter ={this.filter} 
+          />
         <Switch>
           <Route exact path='/' component={() => <LandingPage user={this.state.user} />} />
           <Route path={`/user/${this.state.user.handle}`} component={() => <Profile

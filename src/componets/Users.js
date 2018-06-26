@@ -17,25 +17,18 @@ class Users extends Component {
         fetch(SERVER_URL + '/users')
         .then(response => response.json())
         .then(response => {
-            // console.log(response);
             for (let i = 0; i < response.length; i++) {
-                // console.log(response[i]);
                 if (response[i].handle === this.props.user.handle) {
                     response.splice(response.indexOf(response[i]), 1);
                     break;
                 }
             }
-            this.setState({
-                users: response
-            });
+            this.setState({ users: response });
         });
         this.setState({query: this.props.query});
     }
 
-    componentWillReceiveProps = (newProps) => {
-        this.setState({query: newProps.query});
-        console.log(this.state.query);
-    }
+    componentWillReceiveProps = (newProps) => { this.setState({query: newProps.query}); }
     
     render() {
         let allUsers = '';
