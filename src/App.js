@@ -59,6 +59,8 @@ class App extends Component {
             , followers: response.followers
           }
           this.setState({ user: twitterUser });
+        } else {
+          console.log('no user signed in');
         }
       });
   }

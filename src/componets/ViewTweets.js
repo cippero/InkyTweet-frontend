@@ -10,6 +10,7 @@ import {
 const SERVER_URL = 'http://localhost:8080';
 
 class ViewTweets extends Component {
+    _mounted = false;
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -18,19 +19,23 @@ class ViewTweets extends Component {
 		}
 	}
 
-	componentDidMount() {
-		fetch(`${SERVER_URL}/users/${this.props.userHandle}`)
-		.then(response => response.json())
-	    .then(response => {
-	    	if (response.writtenTweets !== []) {
-	    		this.setState({
-	    			tweets: response.writtenTweets
-	    		})
-	    	}
-	    });
+	async componentDidMount() {
+        this._mounted = true;
+        const response = await fetch(`${SERVER_URL}/users/${this.props.userHandle}`);
+        const json = await response.json();
+        console.log({json: json});
+        if (this._mounted && json.writtenTweets !== []) {
+            await this.setState({
+                tweets: json.writtenTweets
+            });
+            console.log(this.state.tweets);
+        }
         if (this.props.user.subscriptions.indexOf(this.props.userHandle) !== -1) { this.setState({ sub: false })}
-
-	}
+    }
+    
+    componentWillUnmount() {
+        this._mounted = false;
+    }
 
     handleSubscribe(e) {
         fetch(`${SERVER_URL}/users/${this.props.userHandle}`, {
